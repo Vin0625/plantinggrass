@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "vector": "cpp"
+        "vector": "cpp",
+        "lv2_기능개발": "cpp"
     }
 }
