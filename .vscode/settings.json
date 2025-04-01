@@ -3,6 +3,9 @@
         "vector": "cpp",
         "lv2_기능개발": "cpp",
         "lv2_행렬의곱셈": "cpp",
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "__locale": "cpp",
+        "map": "cpp",
+        "string": "cpp"
     }
 }
