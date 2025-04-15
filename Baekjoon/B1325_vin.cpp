@@ -1,49 +1,47 @@
 #include <iostream>
 #include <vector>
+#include <queue>
+#include <algorithm>
 
 using namespace std;
 
-vector<int> com[100000];
-
 int main(){
     int N,M;
-    int be,af;
-    int max=0;
-    int num;
-    vector<int> answer;
-    vector<int> comnum;
-
-    cin.tie(0);
-    cout.tie(0);
-    ios::sync_with_stdio(0);
-
     cin>>N>>M;
 
+    vector<vector<int> > com(N);
+    
     for(int i=0;i<M;i++){
-        cin>>be>>af;
-        com[af].push_back(be);
+        int A,B;
+        cin>>A>>B;
+        com[B-1].push_back(A-1);
     }
-
+    
+    vector<int> count(N,0);
     for(int i=0;i<N;i++){
-        comnum.push_back(com[i].size());
-    }
-
-    for(int i=0;i<N;i++){
-        num=0;
-        for(int j=0;j<com[i].size();j++){
-            num+=comnum[com[i][j]];
+        queue<int> que;
+        vector<bool> visit(N,false);
+        que.push(i);
+        visit[i]=true;
+        while (!que.empty())
+        {
+            int cur=que.front();
+            que.pop();
+            for(int j=0;j<com[cur].size();j++){
+                if(!visit[com[cur][j]]){
+                    que.push(com[cur][j]);
+                    count[i]++; 
+                    visit[com[cur][j]]=true;
+                }
+            }
         }
-        if(num>max){
-            max=num;
-            answer.clear();
-        }
-        if(num==max){
-            answer.push_back(i);
+    }
+    
+    int maxnum = *max_element(count.begin(),count.end());
+
+    for(int i = 0; i < N; i++){
+        if(count[i] == maxnum){
+            cout << i + 1 << " ";
         }
     }
-
-    for(int i=0;i<answer.size();i++){
-        cout<<answer[i]<<" ";
-    }
-
 }
