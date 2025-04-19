@@ -5,24 +5,24 @@ using namespace std;
 
 int main(){
     int N,M;
-    int a;
-    vector<int> A;
-    A.push_back(0);
-    int answer=0;
+    long long a;
+    long long answer=0;
     cin>> N>>M;
-    for(int i=1;i<N;i++){
+    vector<long long> A(N+1);
+    vector<long long> moduler(M,0);
+    for(int i=1;i<=N;i++){
         cin>>a;
-        a=a%M;
-        A.push_back(A[i-1]+a);
-    }
-    for(int i=1;i<N+1;i++){
-        
-        for(int j=0;j<i;j++){
-            if((A[i]-A[j])%M==0){
-                    answer++;
-            }
-        } 
+        A[i]=(A[i-1]+a)%M;
+        if(A[i]==0){
+            answer++;
+        }
+        moduler[A[i]]++;
     }
 
+    for(int i=0;i<M;i++){
+        if(moduler[i]>1){
+            answer+=(moduler[i]*(moduler[i]-1))/2;
+        }
+    }
     cout << answer;
 }
