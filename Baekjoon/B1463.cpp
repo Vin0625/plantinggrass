@@ -3,24 +3,18 @@
 using namespace std;
 
 int main(){
-    int x;
-    int count=0;
-    cin>>x;
-while (x!=1)
-{
-    if(x%3==0){
-        x/=3;
-    }else if ((x-1)%3==0)
-    {
-        x-=1;
-    }else if (x%2==0)
-    {
-        x/=2;
-    }else{
-        x-=1;
+    int dp[1000001] = {0,0,1,1};
+    int n;
+    cin >> n;
+
+    for(int i=4; i<=n; i++){
+        dp[i] = dp[i-1]+1;
+        if(i % 3 == 0){
+            dp[i] = min(dp[i/3]+1,dp[i]);
+        }
+        if(i % 2 == 0){
+            dp[i] = min(dp[i/2]+1,dp[i]);
+        }
     }
-    
-    count++;
-}
-    cout<<count;
+    cout << dp[n];
 }
