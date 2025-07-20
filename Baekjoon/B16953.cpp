@@ -4,7 +4,7 @@
 using namespace std;
 
 int main(){
-    long long A,B;
+    int A,B;
     int answer=1;
     cin>>A>>B;
 
