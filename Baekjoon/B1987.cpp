@@ -1,52 +1,46 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include <queue>
-
 using namespace std;
 
-vector<string> v;
-int x[4]={0,0,1,-1};
-int y[4]={1,-1,0,0};
-int R,C;
+int R, C, answer = 0;
+vector<string> board;
+bool visited[26];
+int dx[4] = {0, 0, 1, -1};
+int dy[4] = {1, -1, 0, 0}; 
 
-int bfs(int n,queue<pair<int,int> > que,vector<int> visited){
-    int max;
-    pair<int,int> p;
-    p=que.front();
-    que.pop();
-    visited[v[p.first][p.second]-'A']=1;
+void dfs(int x, int y, int count) {
+    answer = max(answer, count);
 
-    for(int i=0;i<4;i++){
-        int nx=p.first+x[i];
-        int ny=p.second+y[i];
+    for (int i = 0; i < 4; i++) {
+        int nx = x + dx[i];
+        int ny = y + dy[i];
 
-        if(visited[v[nx][ny]-'A']!=1&&nx>0&&ny>0&&nx<R&&ny<C){
-            que.push(make_pair(nx,ny));
-            visited[v[nx][ny]-'A']=1;
+   
+        if (nx >= 0 && ny >= 0 && nx < R && ny < C) {
+            int idx = board[nx][ny] - 'A';
+            if (!visited[idx]) {
+                visited[idx] = true;
+                dfs(nx, ny, count + 1);
+                visited[idx] = false;
+            }
         }
     }
-
-    
-
-    return max;
 }
 
-int main(){
-    ios::sync_with_stdio(0);
+int main() {
+    ios::sync_with_stdio(false);
     cin.tie(0);
     cout.tie(0);
-
-    cin>>R>>C;
-
-    v.resize(R);
-    vector<int> visited(26,0);
-    queue<pair<int,int> > que;
-    for(int i=0;i<R;i++){
-        cin>>v[i];
+    cin >> R >> C;
+    board.resize(R);
+    for (int i = 0; i < R; i++) {
+        cin >> board[i];
     }
 
-    que.push(make_pair(0,0));
-    
-    
+    visited[board[0][0] - 'A'] = true; 
+    dfs(0, 0, 1); 
+
+    cout << answer << "\n";
+    return 0;
 }
