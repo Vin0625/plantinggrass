@@ -8,6 +8,7 @@ int Maxnum = -1000000000;
 int minnum = 1000000000;
 int opercount = 0;
 int numscount = 0;
+
 vector<int> nums;
 
 void backtrack(int curnums_idx, vector<int> curoper, int current_result) {
