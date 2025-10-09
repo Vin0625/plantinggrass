@@ -1,1 +1,81 @@
-int Find_Shortest_Node(){    int Min_Dist, Min_Idx;    Min_Dist = INF;    Min_Idx = -1;     for (int i = 1; i <= V; i++)    {        if (Select[i] == true) continue;        if (Dist[i] < Min_Dist)        {            Min_Dist = Dist[i];            Min_Idx = i;        }    }    return Min_Idx;} void Update_Dist(int NewNode){    for (int i = 1; i <= V; i++)    {        if (Select[i] == true) continue;        if (Dist[i] > Dist[NewNode] + MAP[NewNode][i])        {            Dist[i] = Dist[NewNode] + MAP[NewNode][i];        }    }} void Dijkstra(){    for (int i = 1; i <= V; i++) Dist[i] = MAP[Start][i];    Dist[Start] = 0;    Select[Start] = true;        for (int i = 0; i < V - 1; i++)    {        int NewNode = Find_Shortest_Node();         Select[NewNode] = true;        Update_Dist(NewNode);    }}
+#include <iostream>
+#include <vector>
+#include <string>
+
+using namespace std;
+
+vector<int> alpha(4);
+vector<int> cnt(4);
+
+bool checkpw(){
+    bool ischecked=true;
+
+    for(int i=0;i<4;i++){
+        if(alpha[i]>cnt[i]){
+            ischecked=false;
+            break;
+        }
+    }
+
+    return ischecked;
+}
+
+int main(){
+    ios::sync_with_stdio(0);
+    cin.tie(0); cout.tie(0);
+
+    int S,P;
+    int answer=0;
+    string str;
+
+    cin>>S>>P;
+    cin>>str;
+
+    //A C G T
+    cin>>alpha[0]>>alpha[1]>>alpha[2]>>alpha[3];
+
+    for(int i=0;i<P;i++){
+        if(str[i]=='A'){
+            cnt[0]++;
+        }else if(str[i]=='C'){
+            cnt[1]++;
+        }else if(str[i]=='G'){
+            cnt[2]++;
+        }else{
+            cnt[3]++;
+        }
+    }
+
+    if(checkpw()){
+        answer++;
+    }
+
+    for(int i=P;i<S;i++){
+        //이전 것 뺴기
+        if(str[i-P]=='A'){
+            cnt[0]--;
+        }else if(str[i-P]=='C'){
+            cnt[1]--;
+        }else if(str[i-P]=='G'){
+            cnt[2]--;
+        }else{
+            cnt[3]--;
+        }
+        //추가된 것 더하기
+        if(str[i]=='A'){
+            cnt[0]++;
+        }else if(str[i]=='C'){
+            cnt[1]++;
+        }else if(str[i]=='G'){
+            cnt[2]++;
+        }else{
+            cnt[3]++;
+        }
+
+        if(checkpw()){
+        answer++;
+        }
+    }
+
+    cout<<answer;
+}
