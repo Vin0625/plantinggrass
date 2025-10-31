@@ -5,37 +5,32 @@
 
 using namespace std;
 
-int main(){
+int main()
+{
     cin.tie(0);
     cout.tie(0);
 
-    int M,N;
-    vector<int> answer;
-    cin>>M>>N;
+    int M, N;
+    vector<bool> isprime(1000000 + 1, true);
 
-    for(int i=M;i<N+1;i++){
-        int isprime=1;
-        if(i<=1){
-            continue;
-        }
-        if(i==2){
-            answer.push_back(i);
-        }
-        if(i%2==0){
-            continue;
-        }
-        for(int j=3;j*j<=i;j+=2){//어떤 수가 합성수라면 약수 쌍 중 작은 쪽이 반드시 √n 이하에 있음
-            if(i%j==0){
-                isprime=0;
-                break;
+    isprime[1]=false;
+
+    cin >> M >> N;
+
+    for (int i = 2; i * i <= N; i++)
+    {
+        if (isprime[i])
+        {
+            for (int j = i + i; j <= N; j += i)
+            {
+                isprime[j] = false;
             }
-        }
-        if(isprime==1){
-            answer.push_back(i);
         }
     }
 
-    for(auto a:answer){
-        cout<<a<<"\n";
+    for(int i=M;i<=N;i++){
+        if(isprime[i]){
+            cout<<i<<"\n";
+        }
     }
 }
