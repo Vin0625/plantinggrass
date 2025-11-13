@@ -1,13 +1,14 @@
 {
-    "files.associations": {
-        "vector": "cpp",
-        "lv2_기능개발": "cpp",
-        "lv2_행렬의곱셈": "cpp",
-        "iostream": "cpp",
-        "__locale": "cpp",
-        "map": "cpp",
-        "string": "cpp",
-        "queue": "cpp",
-        "string_view": "cpp"
-    }
+  "files.associations": {
+    "vector": "cpp",
+    "lv2_기능개발": "cpp",
+    "lv2_행렬의곱셈": "cpp",
+    "iostream": "cpp",
+    "__locale": "cpp",
+    "map": "cpp",
+    "string": "cpp",
+    "queue": "cpp",
+    "string_view": "cpp",
+    "ios": "cpp"
+  }
 }
